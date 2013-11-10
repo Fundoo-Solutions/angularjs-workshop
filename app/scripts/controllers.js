@@ -20,6 +20,9 @@ angular.module('stockMarketApp')
   .controller('AppCtrl', ['AlertService', 'UserService', function(AlertService, UserService) {
     this.alertService = AlertService;
     this.userService = UserService;
+    this.dateSelected = function(dateVal) {
+      console.log("Date ", dateVal, " has just been selected");
+    };
 
   }])
   .controller('LandingCtrl', ['StockService', function(StockService) {
