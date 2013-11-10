@@ -21,4 +21,10 @@ angular.module('stockMarketApp').controller('AppCtrl', [function() {
   self.getChangeClass = function(stock) {
     return self.getChange(stock) >= 0 ? 'positive' : 'negative';
   };
+}]).controller('RegisterCtrl', ['$window', function($window) {
+  var self = this;
+
+  self.register = function() {
+    $window.alert('Trying to register with ' + self.username + ' & ' + self.password);
+  };
 }]);
