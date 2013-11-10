@@ -29,12 +29,6 @@ angular.module('stockMarketApp')
       self.stocks = stocks;
     });
 
-    self.getChange = function(stock) {
-      return Math.ceil(((stock.price - stock.previous) / stock.previous) * 100);
-    };
-    self.getChangeClass = function(stock) {
-      return self.getChange(stock) >= 0 ? 'positive' : 'negative';
-    };
   }])
   .controller('LogoutCtrl', ['UserService', '$location', function(UserService, $location) {
     UserService.logout().then(function() {
@@ -60,10 +54,4 @@ angular.module('stockMarketApp')
       }
     };
 
-    self.getChange = function(stock) {
-      return Math.ceil(((stock.price - stock.previous) / stock.previous) * 100);
-    };
-    self.getChangeClass = function(stock) {
-      return self.getChange(stock) >= 0 ? 'positive' : 'negative';
-    };
   }]);
