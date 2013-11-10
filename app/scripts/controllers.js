@@ -6,7 +6,7 @@ angular.module('stockMarketApp')
       UserService.login(self.username, self.password).then(function(user) {
         $location.path('/mine');
       }, function(err) {
-        AlertService.set(err.data.msg);
+        AlertService.set(err.msg);
       });
     };
     self.register = function() {
@@ -17,10 +17,9 @@ angular.module('stockMarketApp')
       });
     };
   }])
-  .controller('AppCtrl', ['AlertService', function(AlertService) {
+  .controller('AppCtrl', ['AlertService', 'UserService', function(AlertService, UserService) {
     this.alertService = AlertService;
-    this.listPageHtml = 'views/list.html';
-    this.signupPageHtml = 'views/signup.html';
+    this.userService = UserService;
 
   }])
   .controller('LandingCtrl', ['StockService', function(StockService) {
@@ -36,6 +35,11 @@ angular.module('stockMarketApp')
     self.getChangeClass = function(stock) {
       return self.getChange(stock) >= 0 ? 'positive' : 'negative';
     };
+  }])
+  .controller('LogoutCtrl', ['UserService', '$location', function(UserService, $location) {
+    UserService.logout().then(function() {
+      $location.path('/all');
+    });
   }])
   .controller('MyStocksCtrl', ['StockService', function(StockService) {
     var self = this;

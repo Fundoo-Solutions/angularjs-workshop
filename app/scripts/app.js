@@ -20,9 +20,22 @@ angular.module('stockMarketApp', ['ngRoute'])
       .when('/mine', {
         templateUrl: 'views/mine.html',
         controller: 'MyStocksCtrl',
-        controllerAs: 'myStocksCtrl'
+        controllerAs: 'myStocksCtrl',
+        resolve: {
+          auth: ['UserService', 'AlertService', '$q', '$location', function(UserService, AlertService, $q, $location) {
+            return UserService.tokens().then(function(success) {}, function(err) {
+              $q.reject(err);
+              AlertService.set('Please login to access your information');
+              $location.path('/login');
+            });
+          }]
+        }
+      })
+      .when('/logout', {
+        template: ' ',
+        controller: 'LogoutCtrl'
       })
       .otherwise({
-        redirectTo: '/all'
+        redirectTo: '/'
       });
   });
