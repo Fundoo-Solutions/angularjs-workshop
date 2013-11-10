@@ -25,7 +25,7 @@ exports.routes = function(app, stocks_json) {
     /// find user
     // if exists
     if (users[username]) {
-      if (password === users[username]) {
+      if (password === users[username].password) {
         done(null, users[username]);
       } else {
         done(null, false, {msg: 'Incorrect password'});
@@ -110,7 +110,7 @@ exports.routes = function(app, stocks_json) {
     login: function(req, res, next) {
       passport.authenticate('local', function(err, user) {
         if (err) {return next(err); }
-        if (!user) { return res.send({loginStatus: false, msg: 'Unable to find user'}, 400); }
+        if (!user) { return res.send({loginStatus: false, msg: 'Unable to login'}, 400); }
         login(req, res, user);
       })(req, res, next);
     },
