@@ -5,11 +5,16 @@ describe('Service: AlertService', function () {
   // load the controller's module
   beforeEach(module('stockMarketApp'));
 
-  beforeEach(inject(function () {
-
+  var alertService;
+  beforeEach(inject(function (AlertService) {
+    alertService = AlertService;
   }));
 
-  it('should fetch all stocks on load', function () {
-
+  it('should display error messages', function () {
+    expect(alertService.get()).toBeUndefined();
+    alertService.set('This is a test');
+    expect(alertService.get()).toEqual('This is a test');
+    alertService.clear();
+    expect(alertService.get()).toBeNull();
   });
 });
