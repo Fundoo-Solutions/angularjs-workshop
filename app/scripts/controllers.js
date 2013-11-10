@@ -1,6 +1,7 @@
 angular.module('stockMarketApp').controller('AppCtrl', [function() {
   var self = this;
 
+
   self.stocks = [{
     "ticker": "TWTR",
     "name": "Twitter Inc",
@@ -21,10 +22,10 @@ angular.module('stockMarketApp').controller('AppCtrl', [function() {
   self.getChangeClass = function(stock) {
     return self.getChange(stock) >= 0 ? 'positive' : 'negative';
   };
-}]).controller('RegisterCtrl', ['$window', function($window) {
+}]).controller('RegisterCtrl', ['AlertService', function(AlertService) {
   var self = this;
 
   self.register = function() {
-    $window.alert('Trying to register with ' + self.username + ' & ' + self.password);
+    AlertService.set('Trying to register with ' + self.username + ' & ' + self.password);
   };
 }]);
