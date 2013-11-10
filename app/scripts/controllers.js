@@ -1,7 +1,7 @@
-angular.module('stockMarketApp').controller('AppCtrl', [function() {
+angular.module('stockMarketApp').controller('AppCtrl', ['AlertService', function(AlertService) {
   var self = this;
 
-
+  self.alertService = AlertService;
   self.stocks = [{
     "ticker": "TWTR",
     "name": "Twitter Inc",
