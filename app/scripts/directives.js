@@ -39,6 +39,9 @@ angular.module('stockMarketApp').directive('stockDash', ['UserService', 'StockSe
 }]).directive('lineChart', ['$timeout', '$window', function($timeout, $window) {
     return {
       restrict: 'A',
+      scope: {
+        graphData: '='
+      },
       link: function($scope, $element, $attrs) {
         var checkAndContinue = function() {
           if ($window.googleChartsLoaded) {
@@ -57,7 +60,16 @@ angular.module('stockMarketApp').directive('stockDash', ['UserService', 'StockSe
         };
 
         var drawChart = function() {
+          var chart = new google.visualization.LineChart($element[0]);
+          $scope.$watch('graphData', function(newVal) {
+            if (newVal) {
+              chart.draw(google.visualization.arrayToDataTable(dataToArray(newVal)), {
+                height: 70,
+                legend: {position: 'none'}
+              });
+            }
 
+          }, true);
         };
         checkAndContinue();
 
