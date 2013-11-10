@@ -1,31 +1,71 @@
-angular.module('stockMarketApp').controller('AppCtrl', ['AlertService', function(AlertService) {
-  var self = this;
+angular.module('stockMarketApp')
+  .controller('AuthCtrl', ['$location', 'AlertService', function ($location, AlertService) {
 
-  self.alertService = AlertService;
-  self.stocks = [{
-    "ticker": "TWTR",
-    "name": "Twitter Inc",
-    "price": 23,
-    "previous": 21,
-    "size": "Medium"
-  }, {
-    "ticker": "GOOG",
-    "name": "Google Inc",
-    "price": 884,
-    "previous": 899,
-    "size": "Large"
-  }];
+    var self = this;
+    self.login = function() {
 
-  self.getChange = function(stock) {
-    return Math.ceil(((stock.price - stock.previous) / stock.previous) * 100);
-  };
-  self.getChangeClass = function(stock) {
-    return self.getChange(stock) >= 0 ? 'positive' : 'negative';
-  };
-}]).controller('RegisterCtrl', ['AlertService', function(AlertService) {
-  var self = this;
+    };
+    self.register = function() {
+      AlertService.set('Registering ' + self.username);
 
-  self.register = function() {
-    AlertService.set('Trying to register with ' + self.username + ' & ' + self.password);
-  };
-}]);
+    };
+  }])
+  .controller('AppCtrl', ['AlertService', function(AlertService) {
+    this.alertService = AlertService;
+    this.listPageHtml = 'views/list.html';
+    this.signupPageHtml = 'views/signup.html';
+
+  }])
+  .controller('LandingCtrl', [function() {
+    var self = this;
+    self.stocks = [{
+      "ticker": "TWTR",
+      "name": "Twitter Inc",
+      "price": 23,
+      "previous": 21,
+      "size": "Medium"
+    }, {
+      "ticker": "GOOG",
+      "name": "Google Inc",
+      "price": 884,
+      "previous": 899,
+      "size": "Large"
+    }]
+
+    self.getChange = function(stock) {
+      return Math.ceil(((stock.price - stock.previous) / stock.previous) * 100);
+    };
+    self.getChangeClass = function(stock) {
+      return self.getChange(stock) >= 0 ? 'positive' : 'negative';
+    };
+  }])
+  .controller('MyStocksCtrl', [function() {
+    var self = this;
+
+
+    self.stocks = [{
+      "ticker": "TWTR",
+      "name": "Twitter Inc",
+      "price": 23,
+      "previous": 21,
+      "size": "Medium"
+    }, {
+      "ticker": "GOOG",
+      "name": "Google Inc",
+      "price": 884,
+      "previous": 899,
+      "size": "Large"
+    }]
+
+    self.filters = {
+      favorite: true
+    };
+
+    self.toggleFilter = function() {
+      if (self.filters.favorite) {
+        delete self.filters.favorite;
+      } else {
+        self.filters.favorite = true;
+      }
+    };
+  }]);
