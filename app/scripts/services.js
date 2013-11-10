@@ -25,5 +25,17 @@ angular.module('stockMarketApp')
         return $http.get('/api/stocks/' + code);
       }
     };
+  }]).factory('UserService', ['$http', function($http) {
+    return  {
+      login: function(username, pwd) {
+        return $http.post('/api/login', {username: username, password: pwd});
+      },
+      logout: function() {
+        return $http.post('/api/logout', {});
+      },
+      register: function(username, pwd) {
+        return $http.post('/api/register', {username: username, password: pwd});
+      }
+    };
   }]);
 
