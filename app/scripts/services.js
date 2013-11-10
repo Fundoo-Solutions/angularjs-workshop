@@ -23,6 +23,9 @@ angular.module('stockMarketApp')
       },
       get: function(code) {
         return $http.get('/api/stocks/' + code);
+      },
+      toggleFavorite: function(stockCode) {
+        return $http.post('/api/favorite', {stockCode: stockCode});
       }
     };
   }]).factory('UserService', ['$http', '$q', function($http, $q) {
