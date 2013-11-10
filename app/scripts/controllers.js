@@ -1,12 +1,16 @@
 angular.module('stockMarketApp')
-  .controller('AuthCtrl', ['$location', 'AlertService', function ($location, AlertService) {
+  .controller('AuthCtrl', ['$location', 'AlertService', 'UserService', function ($location, AlertService, UserService) {
 
     var self = this;
     self.login = function() {
 
     };
     self.register = function() {
-      AlertService.set('Trying to register with ' + self.username);
+      UserService.register(self.username, self.password).then(function(user) {
+        AlertService.set('Successfully registered ' + self.username);
+      }, function(err) {
+        AlertService.set(err.data.msg);
+      });
     };
   }])
   .controller('AppCtrl', ['AlertService', function(AlertService) {
