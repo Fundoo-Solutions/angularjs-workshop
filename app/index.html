@@ -31,12 +31,11 @@
            ng-bind="appCtrl.alertService.get()"
            ng-show="appCtrl.alertService.get()">
       </div>
-      <div ng-include="appCtrl.listPageHtml">
-      </div>
 
-      <div ng-include="appCtrl.signupPageHtml">
+      <div class="pull-right">
+        <a href="#/login">Login</a> | <a href="#/register">Sign Up</a>
       </div>
-
+      <div ng-view=""></div>
     </div>
 
 
