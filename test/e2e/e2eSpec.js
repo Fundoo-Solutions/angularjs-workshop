@@ -1,4 +1,15 @@
+var fs = require('fs');
+
 describe('Stock home page', function() {
+
+  function takeScreenshot() {
+
+    var name = 'temp.png';
+    browser.takeScreenshot().then(function(data) {
+      fs.writeFileSync(name, data, 'base64');
+    });
+  }
+
   it('should display a list of stocks on the main page', function() {
     browser.get('/');
     var all =
@@ -19,6 +30,7 @@ describe('Stock home page', function() {
 
     element(by.css('.btn-success')).click();
 
+    takeScreenshot();
     element(by.css('.btn-success.all')).click();
 
     var all =
@@ -26,5 +38,7 @@ describe('Stock home page', function() {
     all.then(function(arr) {
       expect(arr.length).toEqual(11);
     });
-  });
+  }, 20000);
 });
+
+
