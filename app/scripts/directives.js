@@ -1,4 +1,4 @@
-angular.module('stockMarketApp').directive('stockDash', ['UserService', 'StockService', '$timeout', function(UserService, StockService, $timeout) {
+angular.module('stockMarketApp').directive('stockDash', ['UserService', 'StockService', '$interval', function(UserService, StockService, $interval) {
   return {
     restrict: 'A',
     templateUrl: 'views/stock-dash.html',
@@ -30,26 +30,20 @@ angular.module('stockMarketApp').directive('stockDash', ['UserService', 'StockSe
           $scope.stockData.history = stockData.history;
           $scope.stockData.price = stockData.price;
           $scope.stockData.previous = stockData.previous;
-          $timeout(fetchStockDetail, 5000);
+
         });
       };
-      $timeout(fetchStockDetail, 5000);
+      $interval(fetchStockDetail, 5000);
     }
   };
-}]).directive('lineChart', ['$timeout', '$window', function($timeout, $window) {
+}]).directive('lineChart', ['$timeout', '$window', function($window) {
     return {
       restrict: 'A',
       scope: {
         graphData: '='
       },
       link: function($scope, $element, $attrs) {
-        var checkAndContinue = function() {
-          if ($window.googleChartsLoaded) {
-            drawChart();
-          } else {
-            $timeout(checkAndContinue, 500);
-          }
-        };
+
 
         var dataToArray = function(priceHistory) {
           var arr = [['Index', 'Price']];
@@ -71,7 +65,7 @@ angular.module('stockMarketApp').directive('stockDash', ['UserService', 'StockSe
 
           }, true);
         };
-        checkAndContinue();
+        drawChart();
 
       }
     };

@@ -33,7 +33,7 @@
       </div>
 
       <div class="pull-right">
-        <span ng-hide="appCtrl.userService.isLoggedIn()"><a href="#/login">Login</a> | <a href="#/register">Sign Up</a></span>
+        <span ng-hide="appCtrl.userService.isLoggedIn()"><a href="#/login" class="login-link">Login</a> | <a href="#/register" class="register-link">Sign Up</a></span>
         <span ng-show="appCtrl.userService.isLoggedIn()"><a href="#/logout">Logout</a></span>
       </div>
 
@@ -64,15 +64,6 @@
         <!-- endbuild -->
 
     <script type="text/javascript" src="scripts/vendors/googlecharts.js"></script>
-    <script type="text/javascript">
 
-      window.googleChartsLoaded = false;
-      // Load the Visualization API and the piechart package.
-      google.load('visualization', '1.0', {'packages':['corechart']});
-      google.setOnLoadCallback(function() {
-        window.googleChartsLoaded = true;
-      });
-
-    </script>
     </body>
 </html>
